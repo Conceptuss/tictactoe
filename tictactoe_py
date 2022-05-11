@@ -1,7 +1,7 @@
 # import os 
 # # clear = os.system("clear")
 
-board = [[".",".","."],[".",".","."],[".",".","."]] 
+# board = [[".",".","."],[".",".","."],[".",".","."]] 
 last_mark = "O"
 
 def get_empty_board():
@@ -9,8 +9,8 @@ def get_empty_board():
     return board
 
 
-def mark_board(row,col,mark):
-    global board
+def mark_board(board,row,col,mark):
+    # global board
     global last_mark
     if board[int(row)][int(col)] == ".":
         board[int(row)][int(col)] = mark.upper()
@@ -19,8 +19,8 @@ def mark_board(row,col,mark):
         print("ruch sie powtorzyl ")
 
 
-def print_board():
-    global board
+def print_board(board):
+    # global board
     print("   1   2   3")
     print(f"A  {board[0][0]} | {board[0][1]} | {board[0][2]}")
     print("  ---+---+---")
@@ -62,8 +62,8 @@ def get_mark():
     return int(row)-1, int(col)-1, mark
             
 
-def full_board():
-    global board
+def full_board(board):
+    # global board
     for i in board:
         for j in i:
             if j == ".":
@@ -74,12 +74,12 @@ def full_board():
 
     
 
-                
-print_board()
-while full_board() == False:
+b=get_empty_board()                
+print_board(b)
+while full_board(b) == False:
     x= get_mark()
-    mark_board(x[0],x[1],x[2])
-    print_board()
+    mark_board(b,x[0],x[1],x[2])
+    print_board(b)
     print("aaa")
 
 
