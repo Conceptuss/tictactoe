@@ -80,9 +80,10 @@ while full_board() == False:
     x= get_mark()
     mark_board(x[0],x[1],x[2])
     print_board()
+    print("aaa")
 
 
-    
+
 
 
 
