@@ -15,6 +15,7 @@ def mark_board(board,row,col,mark):
     if board[int(row)][int(col)] == ".":
         board[int(row)][int(col)] = mark.upper()
         last_mark=mark.upper()
+        return board
     else:
         print("ruch sie powtorzyl ")
 
@@ -73,14 +74,16 @@ def full_board(board):
 
 
     
-
-b=get_empty_board()                
-print_board(b)
-while full_board(b) == False:
-    x= get_mark()
-    mark_board(b,x[0],x[1],x[2])
+def game():
+    b=get_empty_board()                
     print_board(b)
-    print("aaa")
+    while full_board(b) == False:
+        x= get_mark()
+        b=mark_board(b,x[0],x[1],x[2])
+        print_board(b)
+
+
+game()
 
 
 
