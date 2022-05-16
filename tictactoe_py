@@ -2,6 +2,9 @@
 # # clear = os.system("clear")
 
 # board = [[".",".","."],[".",".","."],[".",".","."]] 
+import random
+
+
 last_mark = "O"
 
 def get_empty_board():
@@ -31,7 +34,7 @@ def print_board(board):
 
 
 def valid_coordinates(row,col):
-    if row.upper() in ["A","B","C"] and int(col) in [1,2,3]:
+    if row.upper() in ["A","B","C"] and int(col) in [0,1,2]:
         return True
     else:
         print("zle wspolrzedne, jeszcze raz")
@@ -44,15 +47,15 @@ def get_mark():
         if len(coordinates) == 2:
             row = coordinates[0]
             print(row)
-            col = coordinates[1]
-            print(col)
+            col = int(coordinates[1])-1
+            print(int(col))
             if valid_coordinates(row,col):
                 if row.upper() == "A":
-                    row = 1
+                    row = 0
                 elif row.upper() == "B":
-                    row = 2
+                    row = 1
                 elif row.upper() == "C":
-                    row = 3
+                    row = 2
                 if last_mark == "O":
                     mark = "X"
                 else:
@@ -60,8 +63,28 @@ def get_mark():
                 break
 
                 
-    return int(row)-1, int(col)-1, mark
+    return row, col, mark
             
+def ai_random_move(board):
+    import random
+    global last_mark
+    while True:
+        row = random.randint(0,2)
+        col = random.randint(0,2)
+        if board[int(row)][int(col)] == ".":
+            if last_mark == "O":
+                mark = "X"
+                return row, col, mark
+            else:
+                 mark = "O"
+                 return row, col, mark
+
+            
+
+
+    pass
+
+
 
 def full_board(board):
     # global board
@@ -72,14 +95,17 @@ def full_board(board):
                 
 
 
-
-    
 def game():
+
     board=get_empty_board()                
     print_board(board)
     while full_board(board) == False:
         mark= get_mark()
         board=mark_board(board,mark[0],mark[1],mark[2])
+        print_board(board)
+        mark=ai_random_move(board)
+        board=mark_board(board,mark[0],mark[1],mark[2])
+
         print_board(board)
 
 
