@@ -15,13 +15,18 @@ def get_empty_board():
 
 def mark_board(board,row,col,mark):
     # global board
-    global last_mark
+    board[int(row)][int(col)] = mark.upper()
+    last_mark=mark.upper()
+    return board
+
+
+
+def try_mark(board,row,col):
     if board[int(row)][int(col)] == ".":
-        board[int(row)][int(col)] = mark.upper()
-        last_mark=mark.upper()
-        return board
+        return True
     else:
-        print("ruch sie powtorzyl ")
+
+        return False
 
 
 def print_board(board):
@@ -38,18 +43,17 @@ def valid_coordinates(row,col):
     if row.upper() in ["A","B","C"] and int(col) in [0,1,2]:
         return True
     else:
-        print("zle wspolrzedne, jeszcze raz")
         return False
 
-def get_mark():
+def get_mark(board):
     global last_mark
     while True:
         coordinates = input("podaj wspolrzedne: ")
         if len(coordinates) == 2:
             row = coordinates[0]
-            print(row)
+            # print(row)
             col = int(coordinates[1])-1
-            print(int(col))
+            # print(int(col))
             if valid_coordinates(row,col):
                 if row.upper() == "A":
                     row = 0
@@ -61,8 +65,13 @@ def get_mark():
                     mark = "X"
                 else:
                     mark = "O"
-                break
-
+                # break
+                if try_mark(board,row,col):
+                    break
+                else:
+                    print("ruch sie powtorzyl ")
+            else:
+                 print("zle wspolrzedne, jeszcze raz") 
                 
     return row, col, mark
             
@@ -107,8 +116,9 @@ def game():
     print_board(board)
     while full_board(board) == False:
         clear_console()
-        # mark= get_mark()
-        mark=ai_random_move(board)
+        print_board(board)
+        mark= get_mark(board)
+        # mark=ai_random_move(board)
         board=mark_board(board,mark[0],mark[1],mark[2])
         print_board(board)
         time.sleep(1)
