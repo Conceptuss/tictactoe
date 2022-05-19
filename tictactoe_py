@@ -3,7 +3,8 @@
 
 # board = [[".",".","."],[".",".","."],[".",".","."]] 
 import random
-
+import time
+import os
 
 last_mark = "O"
 
@@ -76,8 +77,8 @@ def ai_random_move(board):
                 mark = "X"
                 return row, col, mark
             else:
-                 mark = "O"
-                 return row, col, mark
+                mark = "O"
+                return row, col, mark
 
             
 
@@ -93,20 +94,29 @@ def full_board(board):
             if j == ".":
                 return False
                 
-
+        
+def clear_console():
+    command = 'clear'
+    if os.name in ('nt', 'dos'):  # If Machine is running on Windows, use cls
+        command = 'cls'
+    os.system(command)
 
 def game():
 
     board=get_empty_board()                
     print_board(board)
     while full_board(board) == False:
-        mark= get_mark()
-        board=mark_board(board,mark[0],mark[1],mark[2])
-        print_board(board)
+        clear_console()
+        # mark= get_mark()
         mark=ai_random_move(board)
         board=mark_board(board,mark[0],mark[1],mark[2])
-
         print_board(board)
+        time.sleep(1)
+        
+
+        
+    
+        
 
 
 game()
